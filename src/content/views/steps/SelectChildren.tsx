@@ -7,13 +7,14 @@ import {
     generateRelativePath,
 } from "../algorithms/childElementAlgorithms";
 import { useRootElementStore, useChildElementsStore } from "../store";
+import { BiDownload } from "react-icons/bi";
 
 export const SelectChildren = () => {
     const rootElementInfo = useRootElementStore((state) => state.rootElementInfo);
     const childElements = useChildElementsStore((state) => state.childElements);
     const addChildElement = useChildElementsStore((state) => state.addChildElement);
     const removeChildElement = useChildElementsStore((state) => state.removeChildElement);
-    
+
     const [picking, setPicking] = useState(false);
     const [selectedChild, setSelectedChild] = useState<PickedElement | null>(null);
     const [childType, setChildType] = useState<ElementType>('text');
@@ -43,27 +44,27 @@ export const SelectChildren = () => {
     const { startPicker } = useElementPicker(
         (pickedElement) => {
             console.log('Child element picked - Selector:', pickedElement.selector, 'Index:', pickedElement.index);
-            
+
             // Get the native element using selector and index
             const allMatching = document.querySelectorAll(pickedElement.selector);
             const nativeElement = allMatching[pickedElement.index] as HTMLElement;
-            
+
             if (!nativeElement) {
                 console.error('Could not find element with selector:', pickedElement.selector, 'at index:', pickedElement.index);
                 return;
             }
-            
+
             setSelectedChild(pickedElement);
             const path = generateRelativePath(rootNativeElement, nativeElement);
             setChildPath(path);
-            
+
             // Auto-detect type based on element
             const detectedType = detectElementType(nativeElement);
             setChildType(detectedType);
-            
+
             // Set default extraction options based on type
             setDefaultExtractionOptions(detectedType);
-            
+
             setPicking(false);
         },
         (pickingNewStatus) => {
@@ -142,7 +143,23 @@ export const SelectChildren = () => {
                 break;
         }
     };
-
+    const exportRootChildrienData = () => {
+        if (!rootNativeElement) {
+            return;
+        }
+        const data = {
+            root: rootElementInfo,
+            children: childElements,
+            exportedAt: new Date().toISOString(),
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `json_html_format_${Date.now()}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+    };
     return (
         <div className="crx-ext-step-container">
             <div className="crx-ext-step-header">
@@ -162,7 +179,7 @@ export const SelectChildren = () => {
                     <div className="crx-ext-child-form">
                         <div className="crx-ext-form-section">
                             <h3>Pick a Child Element</h3>
-                            
+
                             {selectedChild && (
                                 <div className="crx-ext-selected-child-preview">
                                     <h4>Selected Child Element</h4>
@@ -195,7 +212,11 @@ export const SelectChildren = () => {
                                 </div>
 
                                 <div className="crx-ext-form-group">
-                                    <label>
+                                    <label style={{
+                                        display: 'flex',
+                                        gap: 4,
+                                        alignItems: 'center'
+                                    }}>
                                         <input
                                             type="checkbox"
                                             checked={isList}
@@ -219,7 +240,7 @@ export const SelectChildren = () => {
                             {/* Extraction Options based on type */}
                             <div className="crx-ext-extraction-options">
                                 <h4>Extract Options</h4>
-                                
+
                                 {(childType === 'text' || childType === 'link') && (
                                     <label className="crx-ext-checkbox-label">
                                         <input
@@ -306,7 +327,18 @@ export const SelectChildren = () => {
                     {/* Children List */}
                     {childElements.length > 0 && (
                         <div className="crx-ext-children-list">
-                            <h3>Selected Child Elements ({childElements.length})</h3>
+                            <div className=""
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                }}
+                            >
+                                <h3>Selected Child Elements ({childElements.length})</h3>
+                                <div onClick={exportRootChildrienData}>
+                                    <BiDownload size={20} />
+                                </div>
+                            </div>
                             <div className="crx-ext-list-container">
                                 {childElements.map((child) => (
                                     <div key={child.id} className="crx-ext-child-item">

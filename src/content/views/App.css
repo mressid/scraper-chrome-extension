@@ -1,4 +1,45 @@
 /* Extension CSS Reset - Prevent host page styles from affecting extension */
+:root,
+body[ext-data-theme="light"] {
+  --crx-bg-page: #f3f4f6;
+  --crx-bg-surface: #ffffff;
+  --crx-bg-soft: #f9fafb;
+  --crx-bg-muted: #f3f4f6;
+  --crx-text-primary: #1f2937;
+  --crx-text-secondary: #4b5563;
+  --crx-text-muted: #6b7280;
+  --crx-border: #d1d5db;
+  --crx-border-soft: #e5e7eb;
+  --crx-shadow-1: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --crx-shadow-2: 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --crx-hover-soft: #e5e7eb;
+  --crx-code-bg: #f3f4f6;
+  --crx-success-bg: #f1f9f6;
+  --crx-success-border: #d1e7dd;
+  --crx-success-text: #065f46;
+  --crx-success-text-soft: #047857;
+}
+
+body[ext-data-theme="dark"] {
+  --crx-bg-page: #0f172a;
+  --crx-bg-surface: #111827;
+  --crx-bg-soft: #1f2937;
+  --crx-bg-muted: #0b1220;
+  --crx-text-primary: #e5e7eb;
+  --crx-text-secondary: #cbd5e1;
+  --crx-text-muted: #94a3b8;
+  --crx-border: #334155;
+  --crx-border-soft: #1e293b;
+  --crx-shadow-1: 0 8px 20px -8px rgb(0 0 0 / 0.5);
+  --crx-shadow-2: 0 2px 8px -2px rgb(0 0 0 / 0.45);
+  --crx-hover-soft: #273449;
+  --crx-code-bg: #0b1220;
+  --crx-success-bg: #052e2b;
+  --crx-success-border: #0f766e;
+  --crx-success-text: #99f6e4;
+  --crx-success-text-soft: #5eead4;
+}
+
 .crx-ext-root-ext,
 .crx-ext-root-ext * {
   box-sizing: border-box;
@@ -8,6 +49,7 @@
   all: revert;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.5;
+  color: var(--crx-text-primary);
 }
 
 /* Reset common elements that might inherit from host page */
@@ -51,17 +93,18 @@
   font-family: ui-sans-serif, system-ui, sans-serif;
   user-select: none;
   line-height: 1em;
+  color: var(--crx-text-primary);
 }
 
 .crx-ext-popup-content {
-  background-color: white;
+  background-color: var(--crx-bg-surface);
   width: 768px!important;
   min-height: 400px;
-  color: #1f2937;
+  color: var(--crx-text-primary);
   border-radius: 0.5rem;
   box-shadow:
-    0 4px 6px -1px rgb(0 0 0 / 0.1),
-    0 2px 4px -2px rgb(0 0 0 / 0.1);
+    var(--crx-shadow-1),
+    var(--crx-shadow-2);
   width: max-content;
   height: min-content;
   padding: 0.5rem 1rem;
@@ -135,16 +178,17 @@
 .crx-ext-form-label {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: var(--crx-text-secondary);
   text-align: start;
 }
 .crx-ext-form-input {
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--crx-border);
+  background-color: var(--crx-bg-surface);
   width: 100%;
   padding: 0.5rem;
   border-radius: 0.375rem;
   font-size: 1.2rem;
-  color: #111827;
+  color: var(--crx-text-primary);
   transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -163,13 +207,13 @@
   margin: 0;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #444;
+  color: var(--crx-text-primary);
 }
 
 .crx-ext-header-note {
   margin: 0;
   font-size: 1rem;
-  color: #666;
+  color: var(--crx-text-muted);
 }
 
 .crx-ext-card {
@@ -196,11 +240,11 @@
 }
 
 .crx-ext-cont-b {
-  border: 1px solid #999;
+  border: 1px solid var(--crx-border);
   border-radius: 4px;
 }
 .crx-ext-cont-fill {
-  background-color: #f0f0f0;
+  background-color: var(--crx-bg-soft);
 }
 
 .crx-ext-f {
@@ -265,25 +309,25 @@
 }
 
 .crx-ext-btn-fill {
-  background-color: #f0f0f0;
+  background-color: var(--crx-bg-soft);
 }
 .crx-ext-btn-fill:hover {
   background-color: #9945a049;
   color: white;
 }
 .crx-ext-btn.crx-ext-active-a {
-  background-color: #f0f0f0;
-  color: #444;
+  background-color: var(--crx-bg-soft);
+  color: var(--crx-text-primary);
 }
 .crx-ext-btn.crx-ext-not-active {
   background-color: transparent;
-  color: #888;
+  color: var(--crx-text-muted);
 }
 .crx-ext-btn.crx-ext-not-active:hover {
-  background-color: #e0e0e0;
+  background-color: var(--crx-hover-soft);
 }
 .crx-ext-btn-hover:hover {
-  background-color: white;
+  background-color: var(--crx-bg-surface);
 }
 
 /* Step-based flow styles */
@@ -296,20 +340,20 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #1f2937;
+  color: var(--crx-text-primary);
 }
 
 .crx-ext-step-description {
   font-size: 0.875rem;
-  color: #6b7280;
-  margin-bottom: 1rem;
+  color: var(--crx-text-muted);
+  margin-bottom: 0.6rem !important;
 }
 
 .crx-ext-root-element-card {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--crx-border-soft);
   border-radius: 0.5rem;
   padding: 1rem;
-  background-color: #f9fafb;
+  background-color: var(--crx-bg-soft);
 }
 
 .crx-ext-element-preview {
@@ -320,22 +364,22 @@
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-element-stats {
   margin-top: 1rem;
   padding: 1rem;
-  background-color: white;
+  background-color: var(--crx-bg-surface);
   border-radius: 0.375rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--crx-border-soft);
 }
 
 .crx-ext-element-stats h4 {
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-stats-grid {
@@ -349,7 +393,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  background-color: #f9fafb;
+  background-color: var(--crx-bg-soft);
   border-radius: 0.25rem;
 }
 
@@ -363,20 +407,20 @@
 .crx-ext-stat-label {
   font-size: 0.75rem;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--crx-text-muted);
 }
 
 .crx-ext-stat-value {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--crx-text-primary);
 }
 
 .crx-ext-stat-value code {
   font-family: 'Monaco', 'Courier New', monospace;
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
-  background-color: #f3f4f6;
+  background-color: var(--crx-code-bg);
   border-radius: 0.25rem;
   color: #dc2626;
 }
@@ -395,7 +439,7 @@
 
 .crx-ext-empty-state p {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--crx-text-muted);
   margin-bottom: 1rem;
 }
 
@@ -421,9 +465,9 @@
 }
 
 .crx-ext-btn-secondary {
-  background-color: white;
-  color: #374151;
-  border: 1px solid #d1d5db;
+  background-color: var(--crx-bg-surface);
+  color: var(--crx-text-secondary);
+  border: 1px solid var(--crx-border);
   padding: 0.625rem 1.25rem;
   border-radius: 0.375rem;
   font-size: 0.875rem;
@@ -433,8 +477,8 @@
 }
 
 .crx-ext-btn-secondary:hover {
-  background-color: #f9fafb;
-  border-color: #9ca3af;
+  background-color: var(--crx-bg-soft);
+  border-color: var(--crx-text-muted);
 }
 
 .crx-ext-btn-small {
@@ -482,10 +526,10 @@
 }
 
 .crx-ext-child-form {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--crx-border-soft);
   border-radius: 0.5rem;
   padding: 1rem;
-  background-color: #f9fafb;
+  background-color: var(--crx-bg-soft);
   margin-bottom: 1rem;
 }
 
@@ -493,14 +537,14 @@
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-selected-child-preview {
   margin-bottom: 1rem;
   padding: 1rem;
-  background-color: white;
-  border: 1px solid #e5e7eb;
+  background-color: var(--crx-bg-surface);
+  border: 1px solid var(--crx-border-soft);
   border-radius: 0.375rem;
 }
 
@@ -508,7 +552,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-form-group {
@@ -519,7 +563,7 @@
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: var(--crx-text-secondary);
   margin-bottom: 0.1rem !important;
   text-align: start;
 }
@@ -531,7 +575,9 @@
 .crx-ext-form-group select {
   width: 100%!important;
   padding: 0.5rem !important;
-  border: 1px solid #d1d5db !important;
+  border: 1px solid var(--crx-border) !important;
+  background-color: var(--crx-bg-surface);
+  color: var(--crx-text-primary);
   border-radius: 0.375rem !important;
   font-size: 0.875rem !important;
   font-family: inherit;
@@ -560,8 +606,8 @@
 
 .crx-ext-extraction-options {
   padding: 1rem;
-  background-color: white;
-  border: 1px solid #e5e7eb;
+  background-color: var(--crx-bg-surface);
+  border: 1px solid var(--crx-border-soft);
   border-radius: 0.375rem;
   margin-bottom: 1rem;
 }
@@ -570,7 +616,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-checkbox-label {
@@ -615,16 +661,16 @@
 .crx-ext-children-list {
   margin-top: 2rem;
   padding: 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--crx-border-soft);
   border-radius: 0.5rem;
-  background-color: #f9fafb;
+  background-color: var(--crx-bg-soft);
 }
 
 .crx-ext-children-list h3 {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-list-container {
@@ -635,8 +681,8 @@
 
 .crx-ext-child-item {
   padding: 1rem;
-  background-color: white;
-  border: 1px solid #d1d5db;
+  background-color: var(--crx-bg-surface);
+  border: 1px solid var(--crx-border);
   border-radius: 0.375rem;
   transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1),
               border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -662,7 +708,7 @@
 
 .crx-ext-child-name {
   font-weight: 600;
-  color: #1f2937;
+  color: var(--crx-text-primary);
   font-size: 0.9375rem;
 }
 
@@ -689,13 +735,13 @@
 .crx-ext-child-path {
   margin-bottom: 0.75rem;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--crx-text-muted);
 }
 
 .crx-ext-child-path code {
   display: block;
   padding: 0.5rem;
-  background-color: #f3f4f6;
+  background-color: var(--crx-code-bg);
   border-radius: 0.25rem;
   color: #dc2626;
   overflow-x: auto;
@@ -721,10 +767,10 @@
 
 /* Pagination Configuration Styles */
 .crx-ext-pagination-form {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--crx-border-soft);
   border-radius: 0.5rem;
   padding: 1rem;
-  background-color: #f9fafb;
+  background-color: var(--crx-bg-soft);
   margin-bottom: 1rem;
 }
 
@@ -732,7 +778,7 @@
   font-size: 1rem;
   font-weight: 600;
   margin: 1rem 0 0.75rem 0;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-form-section h3:first-child {
@@ -743,7 +789,7 @@
   display: block;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: var(--crx-text-secondary);
   margin-bottom: 0.5rem;
 }
 
@@ -754,8 +800,8 @@
 .crx-ext-params-list {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background-color: white;
-  border: 1px solid #e5e7eb;
+  background-color: var(--crx-bg-surface);
+  border: 1px solid var(--crx-border-soft);
   border-radius: 0.375rem;
 }
 
@@ -763,7 +809,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-param-items {
@@ -777,9 +823,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
-  background-color: #f9fafb;
+  background-color: var(--crx-bg-soft);
   border-radius: 0.25rem;
-  border: 1px solid #f0f0f0;
+  border: 1px solid var(--crx-border-soft);
 }
 
 .crx-ext-param-item code {
@@ -791,8 +837,8 @@
 .crx-ext-config-preview {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background-color: white;
-  border: 1px solid #e5e7eb;
+  background-color: var(--crx-bg-surface);
+  border: 1px solid var(--crx-border-soft);
   border-radius: 0.375rem;
 }
 
@@ -800,7 +846,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-preview-urls {
@@ -812,11 +858,11 @@
 .crx-ext-preview-url {
   display: block;
   padding: 0.5rem;
-  background-color: #f3f4f6;
+  background-color: var(--crx-code-bg);
   border-radius: 0.25rem;
   font-family: 'Monaco', 'Courier New', monospace;
   font-size: 0.7rem;
-  color: #1f2937;
+  color: var(--crx-text-primary);
   word-break: break-all;
   border-left: 3px solid #3b82f6;
   overflow-x: auto;
@@ -825,24 +871,24 @@
 /* Execution Panel Styles */
 .crx-ext-execution-panel {
   padding: 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--crx-border-soft);
   border-radius: 0.5rem;
-  background-color: #f9fafb;
+  background-color: var(--crx-bg-soft);
 }
 
 .crx-ext-config-summary {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background-color: white;
+  background-color: var(--crx-bg-surface);
   border-radius: 0.375rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--crx-border-soft);
 }
 
 .crx-ext-config-summary h3 {
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-summary-items {
@@ -858,7 +904,7 @@
 
 .crx-ext-summary-item .crx-ext-label {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--crx-text-muted);
   font-weight: 500;
   margin-bottom: 0.25rem;
 }
@@ -866,7 +912,7 @@
 .crx-ext-summary-item .crx-ext-value {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #1f2937;
+  color: var(--crx-text-primary);
 }
 
 .crx-ext-error-message {
@@ -887,21 +933,21 @@
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-data-table {
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--crx-border-soft);
   border-radius: 0.375rem;
   overflow-x: auto;
-  background-color: white;
+  background-color: var(--crx-bg-surface);
 }
 
 .crx-ext-table-header {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  background-color: #f3f4f6;
-  border-bottom: 2px solid #e5e7eb;
+  background-color: var(--crx-code-bg);
+  border-bottom: 2px solid var(--crx-border-soft);
   gap: 0;
 }
 
@@ -909,8 +955,8 @@
   padding: 0.75rem;
   font-weight: 600;
   font-size: 0.75rem;
-  color: #374151;
-  border-right: 1px solid #e5e7eb;
+  color: var(--crx-text-secondary);
+  border-right: 1px solid var(--crx-border-soft);
 }
 
 .crx-ext-table-header .crx-ext-table-cell:last-child {
@@ -920,7 +966,7 @@
 .crx-ext-table-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--crx-border-soft);
   gap: 0;
 }
 
@@ -931,8 +977,8 @@
 .crx-ext-table-cell {
   padding: 0.5rem;
   font-size: 0.7rem;
-  color: #1f2937;
-  border-right: 1px solid #f0f0f0;
+  color: var(--crx-text-primary);
+  border-right: 1px solid var(--crx-border-soft);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -951,22 +997,22 @@
 .crx-ext-progress-section {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background-color: white;
+  background-color: var(--crx-bg-surface);
   border-radius: 0.375rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--crx-border-soft);
 }
 
 .crx-ext-progress-section h3 {
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #374151;
+  color: var(--crx-text-secondary);
 }
 
 .crx-ext-progress-bar {
   width: 100%;
   height: 24px;
-  background-color: #e5e7eb;
+  background-color: var(--crx-border-soft);
   border-radius: 0.25rem;
   overflow: hidden;
   margin-bottom: 0.5rem;
@@ -986,29 +1032,28 @@
 
 .crx-ext-progress-text {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--crx-text-muted);
 }
 
 .crx-ext-results-section {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  background-color: white;
+  background-color: var(--crx-success-bg);
   border-radius: 0.375rem;
-  border: 1px solid #d1e7dd;
-  background-color: #f1f9f6;
+  border: 1px solid var(--crx-success-border);
 }
 
 .crx-ext-results-section h3 {
   font-size: 0.875rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
-  color: #065f46;
+  color: var(--crx-success-text);
 }
 
 .crx-ext-results-summary {
   margin-bottom: 1rem;
   font-size: 0.875rem;
-  color: #047857;
+  color: var(--crx-success-text-soft);
 }
 
 .crx-ext-results-preview {
@@ -1018,18 +1063,18 @@
 .crx-ext-results-preview h4 {
   font-size: 0.75rem;
   font-weight: 600;
-  color: #065f46;
+  color: var(--crx-success-text);
   margin-bottom: 0.5rem;
 }
 
 .crx-ext-results-preview pre {
-  background-color: #f3f4f6;
+  background-color: var(--crx-code-bg);
   padding: 0.75rem;
   border-radius: 0.25rem;
   font-size: 0.65rem;
   overflow-x: auto;
-  color: #1f2937;
-  border: 1px solid #e5e7eb;
+  color: var(--crx-text-primary);
+  border: 1px solid var(--crx-border-soft);
 }
 
 .crx-ext-action-buttons {
@@ -1042,4 +1087,3 @@
   flex: 1;
   min-width: 150px;
 }
-
